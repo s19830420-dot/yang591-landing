@@ -9,6 +9,9 @@
 <meta property="og:title" content="小楊房仲情報系統｜比同行早一步">
 <meta property="og:description" content="14年房仲經驗（2012年起）親自打造，專為台灣業務設計。免費試用7天，不用信用卡。">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://houseyang.tw/images/houseyang-icon-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./images/houseyang-icon-32.png">
+<link rel="apple-touch-icon" href="./images/houseyang-icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -32,8 +35,9 @@ a:focus-visible,button:focus-visible{outline:3px solid rgba(139,105,20,.4);outli
 
 nav{padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-light);background:rgba(247,244,238,0.95);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100}
 nav::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),rgba(139,105,20,0) 55%)}
-.logo{font-family:var(--fs);font-size:16px;font-weight:700;color:var(--gold);letter-spacing:0.05em}
-.logo span{font-size:11px;font-weight:400;color:var(--muted);display:block;letter-spacing:0.08em;font-family:var(--fb)}
+.logo{display:flex;align-items:center}
+.logo img{height:46px;display:block}
+@media(max-width:520px){.logo img{height:38px}}
 .nav-cta{font-size:13px;padding:9px 20px;border:1px solid var(--gold);border-radius:var(--r);color:var(--gold);cursor:pointer;font-family:var(--fb);font-weight:500;background:transparent;transition:all 0.2s;text-decoration:none;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
 .nav-cta:hover{background:var(--gold);color:#fff}
 
@@ -48,11 +52,18 @@ nav::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;backgro
   radial-gradient(720px 400px at 88% -8%,rgba(201,168,76,.14),transparent 58%),
   var(--bg)}
 .hero-bg::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(139,105,20,.05) 31px 32px);pointer-events:none}
-.hero-split{display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;min-height:560px;align-items:end;padding:0 40px;gap:56px;position:relative;z-index:2}
-.hero-left{position:relative;align-self:end;padding:0 14px 34px 0}
-.photo-wrap{position:relative;max-width:420px}
+.hero-split{display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;min-height:560px;align-items:center;padding:0 40px;gap:56px;position:relative;z-index:2}
+.hero-left{position:relative;align-self:center;padding:56px 14px 40px 0}
+.photo-wrap{position:relative;max-width:480px}
 .photo-wrap::before{content:"";position:absolute;top:26px;left:-14px;right:14px;bottom:-14px;border:1px solid var(--border);background:repeating-linear-gradient(45deg,rgba(139,105,20,.06) 0 1px,transparent 1px 8px);z-index:0}
-.hero-photo{position:relative;width:100%;display:block;object-fit:cover;object-position:top center;z-index:1;border:1px solid var(--border-light);box-shadow:var(--shadow-md)}
+.hv-frame{position:relative;z-index:1;border:1px solid var(--border-light);background:#fff;box-shadow:var(--shadow-md);border-radius:8px 8px 0 0;overflow:hidden}
+.hv-bar{height:34px;background:var(--text);display:flex;align-items:center;gap:7px;padding:0 14px}
+.hv-bar i{width:10px;height:10px;border-radius:50%;background:#4a3d2c}
+.hv-bar i:first-child{background:var(--gold-light)}
+.hv-bar em{font-style:normal;margin-left:8px;font-size:10.5px;letter-spacing:.12em;color:#B7A98C;font-family:var(--fb)}
+.hv-frame img{width:100%;display:block}
+.hv-mark{position:absolute;left:-24px;top:-26px;z-index:4;width:64px;height:64px;transform:rotate(-5deg);filter:drop-shadow(0 10px 22px rgba(26,21,16,.32))}
+.hv-mark img{width:100%;display:block}
 .photo-cap{position:relative;z-index:2;display:flex;align-items:baseline;gap:10px;background:var(--text);color:#EDE6D6;font-size:12px;padding:9px 14px;letter-spacing:.06em}
 .photo-cap b{font-family:var(--fs);font-size:13.5px;font-weight:700;color:#fff}
 .photo-cap span{color:#B7A98C}
@@ -63,8 +74,8 @@ nav::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;backgro
 .intel b{display:block;font-family:var(--fs);font-size:13.5px;color:var(--text)}
 .intel span{color:var(--muted)}
 .intel em{display:block;font-style:normal;font-size:11px;font-weight:700;color:var(--gold);margin-top:4px}
-.intel-1{right:-18px;top:16%;transform:rotate(1.5deg)}
-.intel-2{left:-22px;bottom:24%;transform:rotate(-2deg)}
+.intel-1{right:-16px;top:-34px;transform:rotate(1.5deg)}
+.intel-2{left:-20px;bottom:52px;transform:rotate(-2deg)}
 .hero-right{padding:64px 0 48px;display:flex;flex-direction:column}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.15em;color:var(--gold);border:1px solid var(--border);padding:5px 14px;border-radius:20px;margin-bottom:24px;background:var(--gold-pale);width:fit-content}
 .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold-light);flex-shrink:0}
@@ -134,18 +145,6 @@ nav::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;backgro
 .feat-body{font-size:13px;color:var(--muted);line-height:1.8}
 .feat-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;background:rgba(139,105,20,0.1);color:var(--gold);margin-top:12px;letter-spacing:0.05em;font-family:var(--fb)}
 .feat-cta{text-align:center;margin-top:40px}
-/* 系統實際畫面 */
-.sysshot{margin-top:36px;position:relative}
-.sysshot::before{content:"";position:absolute;top:20px;left:-12px;right:12px;bottom:-12px;border:1px solid var(--border);background:repeating-linear-gradient(45deg,rgba(139,105,20,.05) 0 1px,transparent 1px 8px);z-index:0}
-.sysshot .frame{position:relative;z-index:1;border:1px solid var(--border-light);border-radius:8px;overflow:hidden;background:#fff;box-shadow:var(--shadow-md)}
-.sysshot .bar{height:32px;background:var(--text);display:flex;align-items:center;gap:7px;padding:0 14px}
-.sysshot .bar i{width:10px;height:10px;border-radius:50%;background:#4a3d2c}
-.sysshot .bar i:first-child{background:var(--gold-light)}
-.sysshot .bar em{font-style:normal;margin-left:8px;font-size:10.5px;letter-spacing:.12em;color:#B7A98C;font-family:var(--fb)}
-.sysshot img{width:100%;display:block}
-.sysshot figcaption{position:relative;z-index:1;display:flex;align-items:baseline;gap:10px;padding:10px 4px 0;font-size:12px;color:var(--muted)}
-.sysshot figcaption b{font-family:var(--fb);font-weight:700;font-size:10px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;flex:none}
-
 .phone-section{padding:72px 24px;position:relative}
 .phone-wrap{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px;align-items:center}
 .phone-frame{position:relative;max-width:280px;margin:0 auto}
@@ -234,11 +233,12 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 
 @media(max-width:860px){
   .hero-split{grid-template-columns:1fr;padding:40px 20px 0;gap:0;min-height:auto}
-  .hero-left{order:2;margin:40px auto 0;padding:0 0 30px}
-  .photo-wrap{max-width:300px;margin:0 auto}
-  .intel-1{right:-10px;top:12%}
-  .intel-2{left:-10px;bottom:20%}
+  .hero-left{order:2;margin:52px auto 0;padding:0 0 34px;width:100%}
+  .photo-wrap{max-width:360px;margin:0 auto}
+  .intel-1{right:-6px;top:-30px}
+  .intel-2{left:-6px;bottom:44px}
   .intel{max-width:190px;padding:10px 13px}
+  .hv-mark{left:-10px;top:-22px;width:54px;height:54px}
   .hero-right{order:1;padding:48px 0 0}
   .hero-stats{gap:0}
   .hstat{padding:0 14px}
@@ -273,9 +273,10 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 <body>
 
 <nav>
-  <div class="logo">小楊房仲情報<span>專為台灣業務設計</span></div>
+  <a class="logo" href="#top"><img src="./images/houseyang-lockup-light.png" alt="HouseYang 小楊房仲情報"></a>
   <a class="nav-cta" href="#form">免費試用7天</a>
 </nav>
+<a id="top"></a>
 
 <div class="hero-bg">
 <section class="hero-split">
@@ -292,8 +293,12 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
         <b>輸入地址 → 行情報告</b>
         <em>「回去查」變「當場答」</em>
       </div>
-      <img src="./images/photo.jpg" alt="楊宗翰" class="hero-photo">
-      <div class="photo-cap"><b>楊宗翰</b><span>連鎖品牌房仲業務主管・2012 年持照</span></div>
+      <span class="hv-mark"><img src="./images/houseyang-icon-192.png" alt="HouseYang"></span>
+      <div class="hv-frame">
+        <div class="hv-bar"><i></i><i></i><i></i><em>小楊資料管理系統</em></div>
+        <img src="./images/crm.jpg" alt="小楊資料管理系統實際畫面">
+      </div>
+      <div class="photo-cap"><b>系統實際畫面</b><span>市場情報・客戶・行情，一個工作台</span></div>
     </div>
   </div>
   <div class="hero-right">
@@ -397,13 +402,6 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
         <div class="feat-tag">商用業務首選</div>
       </div>
     </div>
-    <figure class="sysshot">
-      <div class="frame">
-        <div class="bar"><i></i><i></i><i></i><em>小楊資料管理系統</em></div>
-        <img src="./images/crm.jpg" alt="小楊資料管理系統實際畫面" loading="lazy" onerror="this.closest('.sysshot').style.display='none'">
-      </div>
-      <figcaption><b>Live</b>系統實際畫面 — 不是示意圖，是每天在跑的工作台</figcaption>
-    </figure>
     <div class="feat-cta"><a class="btn-primary" href="#form">立即免費試用</a></div>
   </div>
 </section>
@@ -607,7 +605,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 </section>
 
 <footer>
-  <div class="footer-brand">小楊房仲情報系統</div>
+  <img src="./images/houseyang-lockup-light.png" alt="HouseYang 小楊房仲情報系統" style="height:36px;display:block;margin:0 auto 12px">
   <div class="footer-text">© 2026 Yang Realty Tools · 專為台灣房仲設計 · 板橋<br>
   匯瀚科技有限公司 出品 · 統一編號 62164098 · <a href="https://vasthub.tw" target="_blank" rel="noopener">vasthub.tw</a> · <a href="mailto:hank@houseyang.tw">hank@houseyang.tw</a></div>
 </footer>
