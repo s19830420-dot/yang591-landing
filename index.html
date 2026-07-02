@@ -145,6 +145,42 @@ nav::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;backgro
 .feat-body{font-size:13px;color:var(--muted);line-height:1.8}
 .feat-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;background:rgba(139,105,20,0.1);color:var(--gold);margin-top:12px;letter-spacing:0.05em;font-family:var(--fb)}
 .feat-cta{text-align:center;margin-top:40px}
+/* ===== 系統實況 Live ===== */
+.live-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:8px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow)}
+.ls{padding:22px 20px;border-right:1px solid var(--border-light);position:relative;min-width:0}
+.ls:last-child{border-right:0}
+.ls::before{content:"";position:absolute;top:-1px;left:0;width:28px;height:2px;background:var(--gold-light)}
+.ls b{font-family:var(--fs);font-size:clamp(24px,2.6vw,33px);font-weight:900;color:var(--gold);line-height:1.15;display:block}
+.ls span{font-size:12.5px;color:var(--text);font-weight:500;display:block;margin-top:5px}
+.ls i{font-style:normal;font-size:11.5px;color:var(--muted);display:block;margin-top:2px}
+.live-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.lpanel{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.lp-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:13px 18px;background:var(--text);color:#EDE6D6}
+.lp-hd b{font-family:var(--fs);font-size:15px;color:#fff;letter-spacing:.04em}
+.lp-hd span{font-size:11px;color:#B7A98C;letter-spacing:.1em}
+.lp-bd{padding:14px 18px 12px;flex:1}
+.lp-sec{font-size:11px;letter-spacing:.14em;color:var(--gold);margin:8px 0 8px;font-weight:700}
+.lp-sec:first-child{margin-top:0}
+.lchips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px}
+.lchip{font-size:12px;background:var(--gold-pale);border:1px solid var(--border);color:var(--text);border-radius:999px;padding:3px 11px}
+.lchip b{color:var(--gold);font-weight:700}
+.lrow{display:flex;align-items:baseline;gap:10px;padding:6px 0;font-size:13px}
+.lrow .ln{color:var(--text);font-weight:500;flex:none}
+.lrow .ldots{flex:1;border-bottom:2px dotted rgba(139,105,20,.25);transform:translateY(-3px)}
+.lrow .lv{color:var(--gold);font-weight:700;font-family:var(--fs);flex:none}
+.lrow .lv small{color:var(--muted);font-family:var(--fb);font-weight:400;font-size:11.5px}
+.hit{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border-light)}
+.hit:last-child{border-bottom:0}
+.hit .htag{flex:none;font-size:10.5px;background:rgba(139,105,20,.1);color:var(--gold);border-radius:3px;padding:2px 7px}
+.hit .haddr{min-width:0}
+.hit .haddr b{display:block;font-size:13.5px;color:var(--text);font-weight:500}
+.hit .haddr span{font-size:11.5px;color:var(--muted)}
+.hit .hprice{margin-left:auto;text-align:right;flex:none}
+.hit .hprice b{font-family:var(--fs);font-size:16px;font-weight:900;color:var(--gold);display:block;line-height:1.2}
+.hit .hprice span{font-size:11px;color:var(--muted)}
+.lp-ft{padding:10px 18px;border-top:1px solid var(--border-light);font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px 14px;flex-wrap:wrap}
+.live-note{margin-top:14px;font-size:12px;color:var(--muted);text-align:right}
+
 .phone-section{padding:72px 24px;position:relative}
 .phone-wrap{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px;align-items:center}
 .phone-frame{position:relative;max-width:280px;margin:0 auto}
@@ -232,6 +268,11 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 .footer-text a:hover{text-decoration:underline}
 
 @media(max-width:860px){
+  .live-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ls{border-bottom:1px solid var(--border-light)}
+  .ls:nth-child(2n){border-right:0}
+  .ls:nth-last-child(-n+2){border-bottom:0}
+  .live-grid{grid-template-columns:1fr}
   .hero-split{grid-template-columns:1fr;padding:40px 20px 0;gap:0;min-height:auto}
   .hero-left{order:2;margin:52px auto 0;padding:0 0 34px;width:100%}
   .photo-wrap{max-width:360px;margin:0 auto}
@@ -273,7 +314,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 <body>
 
 <nav>
-  <a class="logo" href="#top"><img src="./images/houseyang-lockup-light.png" alt="HouseYang 小楊房仲情報"></a>
+  <a class="logo" href="#top"><img src="./images/houseyang-lockup-light.png" alt="HouseYang 房仲市場情報系統"></a>
   <a class="nav-cta" href="#form">免費試用7天</a>
 </nav>
 <a id="top"></a>
@@ -408,6 +449,65 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 
 <div class="divider"></div>
 
+<section class="section" id="live">
+  <div class="wrap">
+    <div class="kicker"><span class="k-no">03</span><span class="k-line"></span><span class="k-label">系統實況 / Live Data</span></div>
+    <h2 class="sec-title">不是規格表，是每天在跑的數字</h2>
+    <div class="sec-sub">這些數字直接來自系統本身。市場情報庫每天自動長大——你開通的第一天，這些就全是你的火力。</div>
+    <div class="live-stats">
+      <div class="ls"><b>385,777</b><span>市場物件庫累積</span><i>上架中 25,683 筆</i></div>
+      <div class="ls"><b>46,502</b><span>屋主物件</span><i>第一手直接聯絡</i></div>
+      <div class="ls"><b>18,088</b><span>本週新增情報</span><i>每天自動進來</i></div>
+      <div class="ls"><b>8 天</b><span>物件平均上架天數</span><i>好物件不等人</i></div>
+    </div>
+    <div class="live-grid">
+      <div class="lpanel">
+        <div class="lp-hd"><b>競品雷達</b><span>AI 軍師模組</span></div>
+        <div class="lp-bd">
+          <div class="lp-sec">活躍同行 TOP 5（本週）</div>
+          <div class="lchips">
+            <span class="lchip">連鎖品牌同行 <b>9,406</b> 筆</span>
+            <span class="lchip">仲介陳先生 <b>588</b></span>
+            <span class="lchip">仲介陳小姐 <b>446</b></span>
+            <span class="lchip">仲介林先生 <b>439</b></span>
+            <span class="lchip">仲介林小姐 <b>359</b></span>
+          </div>
+          <div class="lp-sec">各區情報量・行情均價</div>
+          <div class="lrow"><span class="ln">中山區</span><span class="ldots"></span><span class="lv">1,114 筆 <small>均 119,547 元</small></span></div>
+          <div class="lrow"><span class="ln">大安區</span><span class="ldots"></span><span class="lv">971 筆 <small>均 155,863 元</small></span></div>
+          <div class="lrow"><span class="ln">板橋區</span><span class="ldots"></span><span class="lv">838 筆 <small>均 52,557 元</small></span></div>
+          <div class="lrow"><span class="ln">桃園區</span><span class="ldots"></span><span class="lv">1,284 筆 <small>均 50,496 元</small></span></div>
+        </div>
+        <div class="lp-ft"><span>同行上下架動態，每日更新</span><span>誰在賣、賣多久，一眼掌握</span></div>
+      </div>
+      <div class="lpanel">
+        <div class="lp-hd"><b>地圖找物件</b><span>自訂點・500 公尺｜命中 43 筆</span></div>
+        <div class="lp-bd">
+          <div class="hit">
+            <span class="htag">住宅買賣</span>
+            <div class="haddr"><b>中山區四平街</b><span>3房2廳2衛・38.74坪</span></div>
+            <div class="hprice"><b>4,338 萬</b><span>距 49 公尺</span></div>
+          </div>
+          <div class="hit">
+            <span class="htag">住宅買賣</span>
+            <div class="haddr"><b>中山區松江路</b><span>1房1廳1衛・11.62坪</span></div>
+            <div class="hprice"><b>1,430 萬</b><span>距 189 公尺</span></div>
+          </div>
+          <div class="hit">
+            <span class="htag">住宅買賣</span>
+            <div class="haddr"><b>中山區伊通街</b><span>3房1廳1.5衛・22.67坪</span></div>
+            <div class="hprice"><b>2,790 萬</b><span>距 199 公尺</span></div>
+          </div>
+        </div>
+        <div class="lp-ft"><span>屋主／同行／捷運圖層一鍵切換</span><span>同步 115ms</span></div>
+      </div>
+    </div>
+    <p class="live-note">※ 數字為系統實際資料庫快照（2026-07），持續累積中。</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section class="phone-section">
   <div class="phone-wrap wrap">
     <div class="phone-frame">
@@ -418,7 +518,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
       </div>
     </div>
     <div class="phone-text">
-      <div class="kicker"><span class="k-no">03</span><span class="k-line"></span><span class="k-label">手機直接用</span></div>
+      <div class="kicker"><span class="k-no">04</span><span class="k-line"></span><span class="k-label">手機直接用</span></div>
       <h2 class="sec-title">外出帶看、現場開發<br>手機全部搞定</h2>
       <div class="sec-sub">不用回到電腦才能查資料。現場被問行情，當場拿起手機，當場給答案。</div>
       <div class="phone-points">
@@ -443,7 +543,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 
 <section class="section-alt">
   <div class="wrap">
-    <div class="kicker"><span class="k-no">04</span><span class="k-line"></span><span class="k-label">真實使用場景</span></div>
+    <div class="kicker"><span class="k-no">05</span><span class="k-line"></span><span class="k-label">真實使用場景</span></div>
     <h2 class="sec-title">這些都是真實發生的事</h2>
     <div class="sec-sub">不是行銷故事。是我自己或身邊業務，用這套工具實際發生的。</div>
     <div class="story-cards">
@@ -473,7 +573,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 
 <section class="section">
   <div class="wrap">
-    <div class="kicker"><span class="k-no">05</span><span class="k-line"></span><span class="k-label">定價方案</span></div>
+    <div class="kicker"><span class="k-no">06</span><span class="k-line"></span><span class="k-label">定價方案</span></div>
     <h2 class="sec-title">選一個適合你的方案</h2>
     <div class="sec-sub">先免費試7天，感覺有用再說。不用信用卡，不會自動扣款。</div>
     <div class="price-grid">
@@ -529,7 +629,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 
 <section class="section-alt">
   <div class="wrap">
-    <div class="kicker"><span class="k-no">06</span><span class="k-line"></span><span class="k-label">常見問題</span></div>
+    <div class="kicker"><span class="k-no">07</span><span class="k-line"></span><span class="k-label">常見問題</span></div>
     <h2 class="sec-title">你可能想問的</h2>
     <div class="faq-list">
       <div class="faq-item">
@@ -605,7 +705,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 </section>
 
 <footer>
-  <img src="./images/houseyang-lockup-light.png" alt="HouseYang 小楊房仲情報系統" style="height:36px;display:block;margin:0 auto 12px">
+  <img src="./images/houseyang-lockup-light.png" alt="HouseYang 房仲市場情報系統" style="height:36px;display:block;margin:0 auto 12px">
   <div class="footer-text">© 2026 Yang Realty Tools · 專為台灣房仲設計 · 板橋<br>
   匯瀚科技有限公司 出品 · 統一編號 62164098 · <a href="https://vasthub.tw" target="_blank" rel="noopener">vasthub.tw</a> · <a href="mailto:hank@houseyang.tw">hank@houseyang.tw</a></div>
 </footer>
