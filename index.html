@@ -292,7 +292,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 .footer-text a:hover{color:var(--coral-deep);border-bottom-color:var(--coral)}
 
 @media(max-width:860px){
-  .hero-split{grid-template-columns:1fr;padding:40px 20px 0;gap:0;min-height:auto}
+  .hero-split{grid-template-columns:minmax(0,1fr);padding:40px 20px 0;gap:0;min-height:auto}
   .hero-left{order:2;margin:52px auto 0;padding:0 0 34px;width:100%}
   .photo-wrap{max-width:360px;margin:0 auto}
   .intel-1{right:-6px;top:-30px}
@@ -302,13 +302,13 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   .hero-right{order:1;padding:48px 0 0}
   .hd-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 0}
   .hd:nth-child(3){padding-left:0;border-left:0}
-  .engine{grid-template-columns:1fr}
-  .compare,.feat-grid,.price-grid{grid-template-columns:1fr}
-  .phone-wrap{grid-template-columns:1fr;gap:40px}
+  .engine{grid-template-columns:minmax(0,1fr)}
+  .compare,.feat-grid,.price-grid{grid-template-columns:minmax(0,1fr)}
+  .phone-wrap{grid-template-columns:minmax(0,1fr);gap:40px}
   .phone-frame{max-width:240px}
   .phone-text{order:-1}
-  .story-cards{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
+  .story-cards{grid-template-columns:minmax(0,1fr)}
+  .form-grid{grid-template-columns:minmax(0,1fr)}
   .hero-btns{flex-direction:column}
   .hero-btns .btn-primary,.hero-btns .btn-secondary{width:100%;text-align:center}
   .final-btns{flex-direction:column;align-items:center}
@@ -430,7 +430,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="wrap">
     <div class="kicker"><span class="k-no">02</span><span class="k-line"></span><span class="k-label">資料底盤 / Data Engine</span></div>
     <h2 class="sec-title">不是規格表，是每天在跑的資料庫</h2>
-    <div class="sec-sub">HouseYang 的底盤由三種資料構成：市場上正在刊登的、歷年成交過的、門牌上開過又關過的。政府開放資料與官方統計按季更新，刊登情報每天自動進來。你開通的第一天，這些就全是你的火力。</div>
+    <div class="sec-sub">HouseYang 的底盤由三種資料構成：市場上正在刊登的、歷年成交過的、門牌上開過又關過的。政府開放資料與官方統計隨官方釋出定期更新，刊登情報每天自動進來。你開通的第一天，這些就全是你的火力。</div>
     <div class="engine">
       <div class="ledger">
         <div class="lg-hd"><b>資料清冊</b><span>全台 22 縣市</span></div>
@@ -660,7 +660,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
       </div>
       <div class="faq-item">
         <div class="faq-q">資料是從哪裡來的？<span class="faq-arrow">＋</span></div>
-        <div class="faq-a">三類。一是政府開放資料與官方統計：歷年成交行情、租賃行情、人口統計網格、村里消費力、門牌店鋪興替，按季更新。二是租售平台公開刊登資訊：每天自動整理，屋主自售與同行上下架動態一起看。三是你自己累積的客戶資料：永久保存，只有你看得到。</div>
+        <div class="faq-a">三類。一是政府開放資料與官方統計：歷年成交行情、租賃行情、人口統計網格、村里消費力、門牌店鋪興替，隨官方釋出定期更新。二是租售平台公開刊登資訊：每天自動整理，屋主自售與同行上下架動態一起看。三是你自己累積的客戶資料：永久保存，只有你看得到。</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">我不太會用電腦，會很難嗎？<span class="faq-arrow">＋</span></div>
@@ -739,7 +739,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
     <a href="https://moments.tw" target="_blank" rel="noopener"><b>心頁</b> Moments</a>
   </div>
   <div class="footer-text">© 2026 匯瀚科技有限公司 VASTHUB Technology Co., Ltd. · 統一編號 62164098 · 專為台灣房仲設計<br>
-  <a href="https://vasthub.tw" target="_blank" rel="noopener">vasthub.tw</a> · <a href="mailto:hank@houseyang.tw">hank@houseyang.tw</a> · LINE <a href="https://lin.ee/6oqS8hI" target="_blank" rel="noopener">@878gghtx</a><br>
+  <a href="https://vasthub.tw" target="_blank" rel="noopener">vasthub.tw</a> · <a href="mailto:support@houseyang.tw">support@houseyang.tw</a> · LINE <a href="https://lin.ee/6oqS8hI" target="_blank" rel="noopener">@878gghtx</a><br>
   <a href="legal.html#terms">服務條款</a> · <a href="legal.html#privacy">隱私權政策</a> · <a href="legal.html#refund">退款政策</a> · <a href="legal.html#consumer">消費者權益</a></div>
 </footer>
 
