@@ -292,6 +292,22 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 .footer-text a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)}
 .footer-text a:hover{color:var(--coral-deep);border-bottom-color:var(--coral)}
 
+/* ===== 06 免費工具：房產法律速查入口 ===== */
+.law-tool{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:center}
+.lt-text,.lt-card{min-width:0}
+.lt-text .sec-sub{margin-bottom:24px}
+.lt-btns{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.lt-note{font-size:11px;color:var(--slate)}
+.lt-card{background:var(--surface);border:1px solid var(--border-light);border-left:3px solid var(--navy);border-radius:var(--r);box-shadow:var(--shadow);padding:20px 22px}
+.lt-cap{font-size:10.5px;letter-spacing:.18em;color:var(--slate);font-weight:700;margin-bottom:6px}
+.lt-list{list-style:none;margin-bottom:14px}
+.lt-list li{font-family:var(--fs);font-size:15px;color:var(--navy);padding:9px 0;border-bottom:1px dashed var(--border-light);overflow-wrap:anywhere}
+.lt-list li::before{content:"›";color:var(--coral-deep);margin-right:8px}
+.lt-list a{color:inherit;text-decoration:none}
+.lt-list a:hover{color:var(--coral-deep)}
+.lt-src{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:var(--slate)}
+.lt-src b{font-family:var(--fs);font-size:22px;font-weight:900;color:var(--navy)}
+
 @media(max-width:860px){
   .hero-split{grid-template-columns:minmax(0,1fr);padding:40px 20px 0;gap:0;min-height:auto}
   .hero-left{order:2;margin:52px auto 0;padding:0 0 34px;width:100%}
@@ -309,6 +325,8 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   .phone-frame{max-width:240px}
   .phone-text{order:-1}
   .story-cards{grid-template-columns:minmax(0,1fr)}
+  .law-tool{grid-template-columns:minmax(0,1fr);gap:28px}
+  .lt-btns .btn-secondary{width:100%}
   .form-grid{grid-template-columns:minmax(0,1fr)}
   .hero-btns{flex-direction:column}
   .hero-btns .btn-primary,.hero-btns .btn-secondary{width:100%;text-align:center}
@@ -338,6 +356,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 <nav>
   <a class="logo" href="#top"><img src="./images/houseyang-icon-192.png" alt=""><span class="logo-word">HouseYang</span><span class="logo-tag">情報引擎</span></a>
   <div class="nav-right">
+    <a class="nav-link" href="https://law.houseyang.tw/" target="_blank" rel="noopener">房產法律速查</a>
     <a class="nav-link" href="https://vasthub.tw" target="_blank" rel="noopener">VASTHUB 匯瀚</a>
     <a class="nav-link" href="https://nextspot.tw" target="_blank" rel="noopener">佈點 NEXTSPOT</a>
     <a class="nav-cta" href="#form">免費試用 7 天</a>
@@ -594,9 +613,35 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 
 <div class="divider"></div>
 
+<section class="section" id="law">
+  <div class="wrap">
+    <div class="kicker"><span class="k-no">06</span><span class="k-line"></span><span class="k-label">免費工具 / Law Search</span></div>
+    <div class="law-tool">
+      <div class="lt-text">
+        <h2 class="sec-title">客戶問到法律問題，<br>先查到條文再回答</h2>
+        <div class="sec-sub">押金怎麼退、仲介費上限、房屋稅自住怎麼認定——把狀況打進去，列出重點和法條出處，附官方原文連結。免費，不用登入。</div>
+        <div class="lt-btns"><a class="btn-secondary" href="https://law.houseyang.tw/" target="_blank" rel="noopener">打開房產法律速查 →</a></div>
+        <div class="lt-note">僅供參考，不構成法律意見；實際以主管機關公布為準。</div>
+      </div>
+      <div class="lt-card">
+        <div class="lt-cap">常見查詢</div>
+        <ul class="lt-list">
+          <li><a href="https://law.houseyang.tw/?q=%E6%88%BF%E6%9D%B1%E4%B8%8D%E9%80%80%E6%8A%BC%E9%87%91%E6%80%8E%E9%BA%BC%E8%BE%A6" target="_blank" rel="noopener">房東不退押金怎麼辦</a></li>
+          <li><a href="https://law.houseyang.tw/?q=%E7%A7%9F%E7%B4%84%E6%B2%92%E5%88%B0%E6%9C%9F%E6%88%BF%E6%9D%B1%E5%8F%AF%E4%BB%A5%E8%A6%81%E6%88%91%E6%90%AC%E5%97%8E" target="_blank" rel="noopener">租約沒到期房東可以要我搬嗎</a></li>
+          <li><a href="https://law.houseyang.tw/?q=%E4%BB%B2%E4%BB%8B%E8%B2%BB%E6%9C%80%E5%A4%9A%E6%94%B6%E5%A4%9A%E5%B0%91" target="_blank" rel="noopener">仲介費最多收多少</a></li>
+          <li><a href="https://law.houseyang.tw/?q=%E8%B2%B7%E5%88%B0%E6%BC%8F%E6%B0%B4%E5%B1%8B%E5%8F%AF%E4%BB%A5%E8%A7%A3%E7%B4%84%E5%97%8E" target="_blank" rel="noopener">買到漏水屋可以解約嗎</a></li>
+        </ul>
+        <div class="lt-src"><b class="num">2.4 萬+</b><span>筆官方條文與函釋・全國法規資料庫／內政部地政司／財政部</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section class="section">
   <div class="wrap">
-    <div class="kicker"><span class="k-no">06</span><span class="k-line"></span><span class="k-label">定價方案</span></div>
+    <div class="kicker"><span class="k-no">07</span><span class="k-line"></span><span class="k-label">定價方案</span></div>
     <h2 class="sec-title">選一個適合你的方案</h2>
     <div class="sec-sub">先免費試 7 天，感覺有用再說。不用信用卡，不會自動扣款。</div>
     <div class="price-grid">
@@ -652,7 +697,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 
 <section class="section-alt">
   <div class="wrap">
-    <div class="kicker"><span class="k-no">07</span><span class="k-line"></span><span class="k-label">常見問題</span></div>
+    <div class="kicker"><span class="k-no">08</span><span class="k-line"></span><span class="k-label">常見問題</span></div>
     <h2 class="sec-title">你可能想問的</h2>
     <div class="faq-list">
       <div class="faq-item">
@@ -738,6 +783,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
     <a href="https://nextspot.tw" target="_blank" rel="noopener"><b>佈點</b> NEXTSPOT</a>
     <a href="https://foodyang.tw" target="_blank" rel="noopener"><b>FoodYang</b> 餐飲 POS</a>
     <a href="https://moments.tw" target="_blank" rel="noopener"><b>心頁</b> Moments</a>
+    <a href="https://law.houseyang.tw/" target="_blank" rel="noopener"><b>法律速查</b> 房產法規</a>
   </div>
   <div class="footer-text">© 2026 匯瀚科技有限公司 VASTHUB Technology Co., Ltd. · 統一編號 62164098 · 專為台灣房仲設計<br>
   <a href="https://vasthub.tw" target="_blank" rel="noopener">vasthub.tw</a> · <a href="mailto:support@houseyang.tw">support@houseyang.tw</a> · LINE <a href="https://lin.ee/6oqS8hI" target="_blank" rel="noopener">@878gghtx</a><br>
