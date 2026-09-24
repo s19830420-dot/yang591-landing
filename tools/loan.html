@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>房貸試算器｜HouseYang</title>
+<meta name="description" content="用中央銀行最新五大銀行購屋貸款平均利率預設，試算本息平均、本金平均、寬限期、總利息與自備款。">
+<link rel="canonical" href="https://houseyang.tw/tools/loan.html">
+<meta property="og:type" content="website"><meta property="og:title" content="房貸試算器｜HouseYang"><meta property="og:description" content="純前端試算房貸、寬限期、總利息與自備款。"><meta property="og:url" content="https://houseyang.tw/tools/loan.html"><meta property="og:site_name" content="HouseYang 情報引擎"><meta property="og:locale" content="zh_TW"><meta property="og:image" content="https://houseyang.tw/images/houseyang-icon-512.png">
+<link rel="stylesheet" href="../assets/guide.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"HouseYang 房貸試算器","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://houseyang.tw/tools/loan.html","description":"以本金、利率、年限、寬限期與還款方式試算每月還款、總利息與自備款。"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"房貸試算會把資料送出去嗎？","acceptedAnswer":{"@type":"Answer","text":"不會。本工具在瀏覽器前端計算，不接分析服務，也不送表單資料。"}},{"@type":"Question","name":"寬限期內怎麼計算？","acceptedAnswer":{"@type":"Answer","text":"寬限期內僅按剩餘本金與月利率計息；期滿後依剩餘期數重新計算還款。"}},{"@type":"Question","name":"青安貸款額度與年限是多少？","acceptedAnswer":{"@type":"Answer","text":"頁面依財政部國庫署原文摘要顯示一般額度上限、最長年限與寬限期；實際以承辦銀行核定為準。"}}]}</script>
+</head>
+<body>
+<nav><a class="brand" href="../index.html"><img src="../images/houseyang-icon-192.png" alt="HouseYang"><strong>HouseYang</strong><span>情報引擎</span></a><div class="nav-links"><a href="../guide/index.html">買賣流程</a><a aria-current="page" href="loan.html">房貸試算</a><a href="https://law.houseyang.tw/" target="_blank" rel="noopener">房產法律速查</a></div></nav>
+<div class="breadcrumb"><div class="wrap"><a href="../index.html">首頁</a><span>／</span>房貸試算器</div></div>
+<header class="hero"><div class="wrap"><div class="eyebrow">FREE TOOL／LOAN CALCULATOR</div><h1>先看月付與總利息，<br><em>再決定你要借多少。</em></h1><p>本息平均、本金平均、寬限期都能換著算。所有計算在你的瀏覽器完成，不接分析、不接表單、不送任何資料。</p></div></header>
+<main><div class="wrap"><p class="rate-source" id="loan-rate-source">正在載入中央銀行最新五大銀行購屋貸款平均利率…</p><div class="loan-layout"><section class="panel"><h2>輸入貸款條件</h2><form id="loan-form">
+<div class="field"><label for="home-price">房價（元）</label><input id="home-price" name="price" inputmode="decimal" value="10000000" aria-describedby="price-note"><div class="input-note" id="price-note">可輸入數字或含逗號的金額。</div></div>
+<div class="field-grid"><div class="field"><label for="loan-mode">貸款方式</label><select id="loan-mode"><option value="ratio">以貸款成數計算</option><option value="amount">直接輸入貸款金額</option></select></div><div class="field"><label for="loan-value" id="loan-value-label">貸款成數（%）</label><input id="loan-value" inputmode="decimal" value="80"></div></div>
+<div class="field-grid"><div class="field"><label for="loan-years">貸款年限</label><select id="loan-years" name="years"><option value="20">20 年</option><option value="30" selected>30 年</option><option value="40">40 年</option></select></div><div class="field"><label for="annual-rate">年利率（%）</label><input id="annual-rate" name="rate" inputmode="decimal" value="2.290"></div></div>
+<div class="field-grid"><div class="field"><label for="grace-years">寬限期</label><select id="grace-years" name="grace"><option value="0" selected>0 年</option><option value="1">1 年</option><option value="2">2 年</option><option value="3">3 年</option><option value="4">4 年</option><option value="5">5 年</option></select></div><div class="field"><label>還款方式</label><div class="radios"><label><input type="radio" name="method" value="annuity" checked> 本息平均</label><label><input type="radio" name="method" value="principal"> 本金平均</label></div></div></div>
+<div class="field"><label><input id="youth-loan" type="checkbox"> 同時參考青年安心成家購屋優惠貸款</label><div class="input-note">切換只顯示方案重點，不代表符合資格或取得核貸。</div></div>
+<button class="calculate" type="submit">更新試算結果</button></form><p class="notice">試算僅供參考，實際以銀行核貸條件為準。</p></section>
+<aside class="panel"><h2>試算結果</h2><div class="result-top"><small>預估貸款本金</small><b id="result-principal">—</b></div><ul class="result-list"><li><span>寬限期內每月付息</span><b id="result-grace">—</b></li><li><span>寬限期後每月本息</span><b id="result-payment">—</b></li><li><span>總利息</span><b id="result-interest">—</b></li><li><span>總繳款</span><b id="result-total">—</b></li><li><span>首期自備款</span><b id="result-downpayment">—</b></li></ul><details class="schedule"><summary>查看第 1～12 期與每年年底餘額</summary><table><thead><tr><th>期數</th><th>月付</th><th>本金</th><th>利息</th><th>餘額</th></tr></thead><tbody id="schedule-body"></tbody></table></details></aside></div>
+<section class="youth"><h2>青年安心成家購屋優惠貸款（青安 3.0）</h2><p>依財政部國庫署頁面：貸款成數最高 8 成；一般貸款額度最高 1,000 萬元，申請日前 2 年內完成結婚登記的家庭最高 1,200 萬元，育有未成年子女家庭最高 1,500 萬元。</p><p>貸款年限最長 40 年、含寬限期最長 5 年；借款人申貸年齡加計核貸年限不得逾 80。利率以中華郵政 2 年期定期儲金額度未達 500 萬元機動利率為基準，計息方式與優惠期間依原文及承辦銀行核定。</p><p id="youth-note" hidden><strong>已開啟青安參考：</strong>請以承辦銀行對資格、額度、利率與期限的最終核定為準。</p><a href="https://www.nta.gov.tw/singlehtml/108" target="_blank" rel="noopener">查看財政部國庫署青年安心成家購屋優惠貸款原文 →</a></section>
+<section class="location-section"><h2>縣市利率參考</h2><p class="rate-source" id="location-caption">正在載入聯徵中心縣市資料…</p><table class="location-table"><thead><tr><th>擔保品所在縣市</th><th>新增房貸平均利率</th></tr></thead><tbody id="location-rates"></tbody></table></section>
+<section class="faq"><h2>常見問題</h2><details><summary>房貸試算會把資料送出去嗎？</summary><p>不會。本工具在瀏覽器前端計算，不接分析服務，也不送表單資料。</p></details><details><summary>寬限期內怎麼計算？</summary><p>寬限期內僅按剩餘本金與月利率計息；期滿後依剩餘期數重新計算還款。</p></details><details><summary>青安貸款額度與年限是多少？</summary><p>頁面依財政部國庫署原文摘要顯示一般額度上限、最長年限與寬限期；實際以承辦銀行核定為準。</p></details></section>
+<div class="source-strip"><b>計算方式：</b>本息平均攤還 M = P × r(1+r)<sup>n</sup> / ((1+r)<sup>n</sup> − 1)；r 為月利率、n 為月數，r 為 0 時以 P/n 計。本金平均則以每月本金加上餘額利息計算。</div>
+</div></main>
+<footer><div class="footer-brand"><b>HouseYang</b>・房貸試算器</div><a href="../guide/index.html">閱讀買賣流程</a>　·　<a href="https://law.houseyang.tw/" target="_blank" rel="noopener">房產法律速查</a></footer>
+<script src="../assets/loan.js"></script>
+</body>
+</html>
