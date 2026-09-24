@@ -3,11 +3,13 @@
 (function initLoanCalculator(global) {
   function round(value) { return Math.round(value); }
   function money(value) { return `NT$ ${round(value).toLocaleString('zh-TW')}`; }
-  function parseMoney(value) {
-    const normalized = String(value).trim()
+  function normalizeNumeric(value) {
+    return String(value).trim()
       .replace(/[０-９]/g, char => String.fromCharCode(char.charCodeAt(0) - 0xFEE0))
-      .replace(/．/g, '.').replace(/，/g, ',')
-      .replace(/[\s,]/g, '');
+      .replace(/．/g, '.').replace(/，/g, ',');
+  }
+  function parseMoney(value) {
+    const normalized = normalizeNumeric(value).replace(/元$/, '').replace(/[\s,]/g, '');
     if (!normalized) return Number.NaN;
     const multiplier = normalized.endsWith('萬') ? 10000 : 1;
     const numeric = multiplier === 10000 ? normalized.slice(0, -1) : normalized;
@@ -15,11 +17,16 @@
     const amount = Number(numeric) * multiplier;
     return Number.isFinite(amount) && amount >= 0 ? amount : Number.NaN;
   }
+  function parseAnnualRate(value) {
+    const normalized = normalizeNumeric(value).replace(/[\s,]/g, '').replace(/[％%]$/, '');
+    if (!/^\d+(?:\.\d+)?$/.test(normalized)) return Number.NaN;
+    return Number(normalized);
+  }
 
   function calculateLoan({ principal, annualRate, years, graceYears = 0, method = 'annuity' }) {
     const P = Number(principal);
-    const parsedAnnualRate = Number(annualRate);
-    if (String(annualRate).trim() === '' || !Number.isFinite(parsedAnnualRate) || parsedAnnualRate < 0 || parsedAnnualRate > 30) {
+    const parsedAnnualRate = parseAnnualRate(annualRate);
+    if (!Number.isFinite(parsedAnnualRate) || parsedAnnualRate < 0 || parsedAnnualRate > 30) {
       throw new Error('請輸入 0～30 之間的年利率（%）');
     }
     const rate = parsedAnnualRate / 100 / 12;
@@ -55,7 +62,7 @@
     if (!Number.isFinite(totalPayment)) throw new Error('請輸入 0～30 之間的年利率（%）');
     const firstRepayment = schedule[graceMonths] || schedule[0];
     return {
-      principal: P, annualRate: Number(annualRate), years: Number(years), graceYears: Number(graceYears), method,
+      principal: P, annualRate: parsedAnnualRate, years: Number(years), graceYears: Number(graceYears), method,
       gracePayment: graceMonths ? P * rate : 0,
       repaymentPayment: firstRepayment.payment,
       totalInterest, totalPayment, schedule, graceMonths
@@ -75,10 +82,11 @@
     const cityCaption = document.querySelector('#location-caption');
     const cityBody = document.querySelector('#location-rates');
     const youthToggle = document.querySelector('#youth-loan');
+    const youthNotice = document.querySelector('#youth-note');
+    const youthLimitNotice = document.querySelector('#youth-limit-note');
     const loanMode = document.querySelector('#loan-mode');
     const loanValue = document.querySelector('#loan-value');
     const loanValueLabel = document.querySelector('#loan-value-label');
-    let latestRate = null;
 
     function syncLoanLabel() {
       const byRatio = loanMode.value === 'ratio';
@@ -88,22 +96,16 @@
       loanValue.setAttribute('inputmode', 'decimal');
     }
     function renderRates(data) {
-      latestRate = data.cbc.homeLoanRate;
-      rateInput.value = latestRate.toFixed(3);
-      rateSource.textContent = `中央銀行公布 ${data.cbc.year} 年 ${data.cbc.month} 月五大銀行新承做購屋貸款平均利率 ${latestRate.toFixed(3)}%`;
+      rateInput.value = data.cbc.homeLoanRate.toFixed(3);
+      rateSource.textContent = `中央銀行公布 ${data.cbc.year} 年 ${data.cbc.month} 月五大銀行新承做購屋貸款平均利率 ${data.cbc.homeLoanRate.toFixed(3)}%`;
       const [locationYear, locationMonth] = data.locations.period.split('-').map(Number);
-      cityCaption.textContent = `聯徵中心 ${locationYear} 年 ${locationMonth} 月各縣市新增房貸平均利率（%）`;
+      cityCaption.textContent = `聯徵中心 ${locationYear} 年 ${locationMonth} 月各縣市新增房貸平均利率（%，連江縣無資料）`;
       cityBody.replaceChildren(...data.locations.rates.map(item => {
         const row = document.createElement('tr');
         const city = document.createElement('td'); city.textContent = item.name;
         const value = document.createElement('td'); value.textContent = `${item.rate.toFixed(3)}%`;
         row.append(city, value); return row;
       }));
-    }
-    function loanPrincipal() {
-      const price = parseMoney(document.querySelector('#home-price').value);
-      const value = parseMoney(loanValue.value);
-      return loanMode.value === 'ratio' ? price * value / 100 : value;
     }
     function renderSchedule(result) {
       const body = document.querySelector('#schedule-body');
@@ -114,7 +116,7 @@
       }
       body.replaceChildren(...selected.map(item => {
         const row = document.createElement('tr');
-        for (const text of [item.month, money(item.payment), money(item.principal), money(item.interest), money(item.balance)]) {
+        for (const text of [item.month, round(item.payment).toLocaleString('zh-TW'), round(item.principal).toLocaleString('zh-TW'), round(item.interest).toLocaleString('zh-TW'), round(item.balance).toLocaleString('zh-TW')]) {
           const cell = document.createElement('td'); cell.textContent = text; row.appendChild(cell);
         }
         return row;
@@ -123,31 +125,51 @@
     function renderResult(result, price) {
       document.querySelector('#result-principal').textContent = money(result.principal);
       document.querySelector('#result-grace').textContent = result.graceMonths ? money(result.gracePayment) : '無寬限期';
-      document.querySelector('#result-payment-label').textContent = result.method === 'principal'
-        ? '寬限期後首期本息（之後逐月遞減）'
-        : '寬限期後每月本息';
+      const baseLabel = result.method === 'principal' ? '首期本息（之後逐月遞減）' : '每月本息';
+      document.querySelector('#result-payment-label').textContent = result.graceMonths ? `寬限期後${baseLabel}` : baseLabel;
       document.querySelector('#result-payment').textContent = money(result.repaymentPayment);
       document.querySelector('#result-interest').textContent = money(result.totalInterest);
       document.querySelector('#result-total').textContent = money(result.totalPayment);
       document.querySelector('#result-downpayment').textContent = money(Math.max(0, price - result.principal));
       renderSchedule(result);
     }
+    function clearResult() {
+      for (const selector of ['#result-principal', '#result-grace', '#result-payment', '#result-interest', '#result-total', '#result-downpayment']) {
+        document.querySelector(selector).textContent = '—';
+      }
+      document.querySelector('#result-payment-label').textContent = '每月本息';
+      document.querySelector('#schedule-body').replaceChildren();
+      youthLimitNotice.hidden = true;
+    }
+    function updateYouthNotices(principal, price) {
+      youthNotice.hidden = !youthToggle.checked;
+      const ratio = principal / price * 100;
+      youthLimitNotice.hidden = !(youthToggle.checked && (principal > 10000000 || ratio > 80));
+    }
     function calculate() {
       const price = parseMoney(document.querySelector('#home-price').value);
-      const principal = loanPrincipal();
+      const loanInput = parseMoney(loanValue.value);
       const values = new FormData(form);
       try {
-        if (!Number.isFinite(price) || !Number.isFinite(principal) || price <= 0 || principal <= 0 || principal > price) {
-          throw new Error('請輸入正數金額，可用逗號或「萬」，例如 1,000 萬。');
+        if (!Number.isFinite(price) || price <= 0) throw new Error('請輸入正數房價，可用逗號或「萬」，例如 1,000 萬。');
+        if (loanMode.value === 'ratio' && (!Number.isFinite(loanInput) || loanInput < 1 || loanInput > 100)) {
+          throw new Error('貸款成數請輸入 1～100 之間的數字，例如 80。');
         }
+        if (loanMode.value === 'amount' && (!Number.isFinite(loanInput) || loanInput <= 0)) {
+          throw new Error('請輸入正數貸款金額，可用逗號或「萬」，例如 800 萬。');
+        }
+        const principal = loanMode.value === 'ratio' ? price * loanInput / 100 : loanInput;
+        if (principal > price) throw new Error('貸款金額不得高於房價。');
         const result = calculateLoan({ principal, annualRate: rateInput.value, years: values.get('years'), graceYears: values.get('grace'), method: values.get('method') });
         renderResult(result, price);
-        const youthNotice = document.querySelector('#youth-note');
-        youthNotice.hidden = !youthToggle.checked;
-      } catch (error) { window.alert(error.message); }
+        updateYouthNotices(principal, price);
+      } catch (error) {
+        clearResult();
+        window.alert(error.message);
+      }
     }
     loanMode.addEventListener('change', syncLoanLabel);
-    youthToggle.addEventListener('change', () => { document.querySelector('#youth-note').hidden = !youthToggle.checked; });
+    youthToggle.addEventListener('change', calculate);
     form.addEventListener('submit', event => { event.preventDefault(); calculate(); });
     syncLoanLabel();
     fetch('../assets/rates.json').then(response => {
