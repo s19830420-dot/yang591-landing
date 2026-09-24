@@ -7,7 +7,7 @@ const sourceDir = 'D:/HouseYang/kb-build/k13-sources';
 const cbcFile = path.join(sourceDir, 'rate_cbc_5bank.csv');
 const jcicFile = path.join(sourceDir, 'rate_jcic_location.csv');
 const outputFile = path.resolve(__dirname, '..', 'assets', 'rates.json');
-const cityOrder = ['台北市', '新北市', '桃園市', '台中市', '台南市', '高雄市', '基隆市', '新竹市', '新竹縣'];
+const cityOrder = ['台北市', '新北市', '桃園市', '台中市', '台南市', '高雄市', '基隆市', '宜蘭縣', '嘉義市', '新竹縣', '苗栗縣', '南投縣', '彰化縣', '新竹市', '雲林縣', '嘉義縣', '屏東縣', '花蓮縣', '台東縣', '金門縣', '澎湖縣'];
 
 function parseCsv(text) {
   const rows = [];

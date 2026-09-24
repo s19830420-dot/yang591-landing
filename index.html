@@ -62,6 +62,8 @@ nav::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;backgro
 .nav-cta{font-size:13px;padding:9px 20px;border:1px solid var(--navy);border-radius:var(--r);color:var(--navy);cursor:pointer;font-family:var(--fb);font-weight:500;background:transparent;transition:background .15s,color .15s;text-decoration:none;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
 .nav-cta:hover{background:var(--navy);color:var(--cream)}
 @media(max-width:640px){.nav-link{display:none}.logo-tag{display:none}}
+@media(max-width:900px){.nav-link[href^="https://vasthub"],.nav-link[href^="https://nextspot"]{display:none}}
+@media(min-width:641px) and (max-width:700px){.logo-tag{display:none}.nav-right{gap:6px 12px}}
 
 /* ===== 章節開頭（編號＋線＋標籤）===== */
 .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px}
@@ -622,7 +624,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="lt-text">
         <h2 class="sec-title">客戶問到法律問題，<br>先查到條文再回答</h2>
         <div class="sec-sub">押金怎麼退、仲介費上限、房屋稅自住怎麼認定——把狀況打進去，列出重點和法條出處，附官方原文連結。免費，不用登入。</div>
-        <div class="lt-btns"><a class="btn-secondary" href="guide/index.html">查看買賣流程 →</a><a class="btn-secondary" href="tools/loan.html">房貸試算 →</a><a class="btn-secondary" href="https://law.houseyang.tw/" target="_blank" rel="noopener">打開房產法律速查 →</a></div>
+        <div class="lt-btns"><a class="btn-secondary" href="https://law.houseyang.tw/" target="_blank" rel="noopener">打開房產法律速查 →</a><a class="btn-secondary" href="guide/index.html">買賣流程指南 →</a><a class="btn-secondary" href="tools/loan.html">房貸試算 →</a></div>
         <div class="lt-note">僅供參考，不構成法律意見；實際以主管機關公布為準。</div>
       </div>
       <div class="lt-card">
