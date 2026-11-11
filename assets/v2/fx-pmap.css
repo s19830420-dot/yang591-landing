@@ -1,0 +1,28 @@
+/* fx-pmap.css：HouseYang 首頁全台單價地圖，以及有地圖時「地圖｜排行｜走勢」的排法。地圖沒載成功時沒有 .has-pmap，維持原本兩欄。 */
+.market-map { margin: 0 0 var(--space-4, 32px); min-width: 0; }
+.market-map .trend-cap { margin: 0 0 var(--space-1, 8px); font: 700 var(--text-xs, .8125rem)/1.7 var(--font-kicker, sans-serif); letter-spacing: .08em; color: var(--slate, #3a4d63); }
+.pmap-box { width: min(100%, 360px); margin-inline: auto; aspect-ratio: 257 / 350; }
+.pmap-box canvas { display: block; width: 100%; height: 100%; cursor: pointer; touch-action: pan-y; }
+.pmap-box canvas:focus-visible { outline: 2px solid var(--coral, #ff5e5b); outline-offset: 4px; }
+.market-map .pmap-read { min-height: 3.4em; margin: var(--space-2, 16px) 0 0; font-size: var(--text-sm, .9375rem); line-height: 1.7; color: var(--slate, #3a4d63); }
+.pmap-read .nb { display: inline-block; }
+.pmap-read b { font: 600 1.25rem/1.2 var(--font-number, sans-serif); font-variant-numeric: tabular-nums; color: var(--navy, #0e1b2e); }
+.market-map .pmap-legend { display: flex; align-items: center; gap: 4px; margin: 4px 0 0; font-size: 12px; color: var(--slate, #3a4d63); }
+.pmap-legend i { display: inline-block; width: 18px; height: 8px; background: var(--navy, #0e1b2e); }
+@media (min-width: 1024px) {
+  /* 1024～1199：地圖在左、排行在右，走勢排在下面整列 */
+  .market-live.has-pmap.has-trend .market-board { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+  .market-live.has-pmap .market-controls { grid-row: 1; }
+  .market-live.has-pmap .market-sum { grid-row: 2; }
+  .market-live.has-pmap .market-note { grid-row: 5; }
+  .market-live.has-pmap .market-map { grid-column: 1; grid-row: 3; margin: 0; }
+  .market-live.has-pmap.has-trend .market-bars { grid-column: 2; grid-row: 3; }
+  .market-live.has-pmap.has-trend .market-trend { grid-column: 1 / -1; grid-row: 4; margin-top: var(--space-6, 48px); }
+  .market-live.has-pmap .pmap-box { width: min(100%, 380px); margin-inline: 0; }
+}
+@media (min-width: 1200px) {
+  /* 夠寬：地圖｜排行｜走勢 三欄一排，一個畫面看完 */
+  .market-live.has-pmap.has-trend .market-board { grid-template-columns: minmax(0, .9fr) minmax(0, .95fr) minmax(0, 1fr); column-gap: var(--space-6, 48px); }
+  .market-live.has-pmap.has-trend .market-trend { grid-column: 3; grid-row: 3; margin-top: 0; }
+  .market-live.has-pmap .mb-row { grid-template-columns: 2ch 4.6em minmax(40px, 1fr) 6.6em; gap: var(--space-1, 8px); }
+}

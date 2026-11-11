@@ -1,0 +1,94 @@
+/* 首頁排行獨立樣式，沿用本站色票與版面尺度。 */
+.market-live[hidden] { display: none; }
+.market-live { background: var(--paper); }
+.market-live .nb { display: inline-block; max-width: 100%; }
+.market-live .market-board { min-width: 0; }
+.market-live .market-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.market-live .market-county { display: flex; align-items: center; gap: var(--space-2); }
+.market-live .market-county > span { flex: none; }
+.market-live select, .market-live .market-metric button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--navy);
+  touch-action: manipulation;
+}
+.market-live select { width: 10em; max-width: 100%; font-size: var(--text-base); }
+.market-live .market-metric { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-1); }
+.market-live .market-metric button { white-space: nowrap; }
+.market-live .market-metric button[aria-pressed="true"] { background: var(--navy); color: var(--white); }
+.market-live button:focus-visible, .market-live select:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+.market-live .market-sum {
+  min-height: 3.6em;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lead);
+  line-height: 1.8;
+  color: var(--slate);
+}
+.market-live .market-sum b { font-family: var(--font-number); font-variant-numeric: tabular-nums; color: var(--navy); }
+.market-live .market-bars {
+  min-height: 449px; /* 十列與九條分隔線，載入與換指標時都保留空間。 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.market-live .market-bars > li + li { margin-top: 0; border-top: 1px solid var(--line); }
+.market-live .mb-row {
+  display: grid;
+  grid-template-columns: 2ch 5.5em minmax(60px, 1fr) 8em;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-1);
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--navy);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  text-align: left;
+  touch-action: manipulation;
+}
+.market-live .mb-rank, .market-live .mb-value { font-family: var(--font-number); font-variant-numeric: tabular-nums; }
+.market-live .mb-rank { color: var(--slate); opacity: .65; }
+.market-live .mb-name { min-width: 0; overflow-wrap: anywhere; }
+.market-live .mb-value { text-align: right; white-space: nowrap; }
+.market-live .mb-track { display: block; height: 10px; background: var(--line); background: color-mix(in srgb, var(--line) 45%, transparent); }
+.market-live .mb-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--slate);
+  transform-origin: left;
+  transition: scale 300ms cubic-bezier(.23, 1, .32, 1);
+}
+.market-live .market-bars > li:first-child .mb-bar { background: var(--coral); }
+.market-live .mb-row[aria-pressed="true"], .market-live .mb-row:active,
+.market-live .market-metric button:not([aria-pressed="true"]):active { background: var(--surface); }
+.market-live .market-note { min-height: 3.6em; margin: var(--space-3) 0 0; }
+@media (hover: hover) and (pointer: fine) {
+  .market-live .mb-row:hover, .market-live .market-metric button:not([aria-pressed="true"]):hover { background: var(--surface); }
+}
+@media (max-width: 767px) {
+  .market-live .market-controls { flex-direction: column; align-items: stretch; gap: var(--space-2); }
+  .market-live .market-county select { flex: 1; width: auto; min-width: 0; }
+  .market-live .market-metric button { padding-inline: var(--space-1); font-size: var(--text-sm); }
+  .market-live .market-sum { min-height: 9em; }
+  .market-live .market-note { min-height: 9em; }
+  .market-live .mb-row { grid-template-columns: 2ch 5.5em minmax(60px, 1fr) 7.5em; gap: var(--space-1); font-size: var(--text-sm); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .market-live .mb-bar { transition: none; }
+}
+
+.market-live .market-bars > li.mb-empty { padding: var(--space-3) var(--space-1); color: var(--slate); font-size: var(--text-sm); }

@@ -1,0 +1,65 @@
+/* fx.css：體感層 v1（六站共用同一支。來源 D:/HouseYang/sites-v2/fx/src，改來源再同步到各站，不要各站各改）
+   守則：只動 transform 家族與 opacity；滑鼠效果一律包在 (hover:hover) and (pointer:fine)；
+   prefers-reduced-motion 時全部關閉；不用 transition: all；不加發光、霓虹、掃描線。 */
+:root {
+  --fx-out: cubic-bezier(.23, 1, .32, 1);
+  --fx-io: cubic-bezier(.77, 0, .175, 1);
+  --fx-accent: var(--accent, var(--coral, var(--teal, var(--rose, currentColor))));
+}
+
+/* 觸控基線 */
+html.fx a, html.fx button { -webkit-tap-highlight-color: transparent; }
+html.fx .button, html.fx button { touch-action: manipulation; }
+
+/* 螢幕報讀用的隱藏字 */
+.fx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* 捲動進度細線（瀏覽器支援捲動時間軸才出現，不吃主執行緒） */
+.fx-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fx-progress { display: block; position: fixed; inset: 0 0 auto; height: 2px; z-index: 60; background: var(--fx-accent); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; animation: fx-progress linear both; animation-timeline: scroll(root block); }
+    @keyframes fx-progress { to { transform: scaleX(1); } }
+    /* 滿版照片帶：跟著捲動慢慢推近（接在原本的視差上，互不干擾） */
+    html.fx .band-photo img { animation: fx-zoom linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+    @keyframes fx-zoom { from { scale: 1.14; } to { scale: 1; } }
+  }
+}
+
+/* 里程表數字：原字留著撐版面與報讀，翻動的數字疊在上面 */
+.fx-odo { position: relative; display: inline-block; font-variant-numeric: tabular-nums; }
+.fx-odo-ghost { opacity: 0; }
+.fx-odo-row { position: absolute; inset: 0; display: flex; }
+.fx-odo-col { flex: none; height: 100%; overflow: hidden; }
+.fx-odo-strip { display: block; transition: translate var(--fx-odo-time, 1200ms) var(--fx-out); }
+.fx-odo-strip > span { display: block; height: 1lh; }
+.fx-odo.in .fx-odo-strip { translate: 0 calc(var(--fx-end) * -1lh); }
+
+/* 換頁時首屏標題、照片接續（支援跨頁過場的瀏覽器才有） */
+@supports (view-transition-name: none) {
+  @media (prefers-reduced-motion: no-preference) {
+    html.fx .hero-photo, html.fx .hero-picture { view-transition-name: fx-hero; }
+    ::view-transition-group(fx-hero) { animation-duration: 420ms; animation-timing-function: var(--fx-io); }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  /* 首屏照片景深：多放大一點，滑鼠帶動時邊緣才不會露底 */
+  html.fx .hero-photo img, html.fx .hero-picture img { scale: 1.035; }
+  /* 手機框、截圖框：跟著滑鼠立體轉（程式寫 rotate／translate） */
+  html.fx .fx-tilt { transform-style: preserve-3d; backface-visibility: hidden; }
+  /* 入口列、卡片：滑鼠位置的一小片受光（不是發光，只是底色亮一階） */
+  html.fx .fx-glint { background-image: radial-gradient(540px circle at var(--fx-x, 50%) var(--fx-y, 50%), color-mix(in srgb, currentColor calc(var(--fx-a, 0) * 7%), transparent), transparent 64%); background-repeat: no-repeat; }
+  /* 產品入口列：滑到哪一列，其他列的照片退後（只淡照片，文字與連結不淡，對比才夠），這一列的照片往前推一點 */
+  html.fx .product-row figure { transition: opacity 220ms var(--fx-out); }
+  html.fx .product-list:has(.product-row:hover) .product-row:not(:hover) figure { opacity: .45; }
+  html.fx .product-row figure { overflow: hidden; border-radius: var(--radius, 0); }
+  html.fx .product-row figure img { transition: scale 600ms var(--fx-out); }
+  html.fx .product-row:hover figure img { scale: 1.045; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-odo-strip { transition: none; }
+}
+@media print {
+  .fx-progress { display: none !important; }
+}
